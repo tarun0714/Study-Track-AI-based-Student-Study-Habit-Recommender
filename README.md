@@ -1,0 +1,192 @@
+# 🛍️ Online Retail Dataset — Exploratory Data Analysis (EDA)
+
+## 📌 Project Overview
+
+This project performs **Exploratory Data Analysis (EDA)** on the [Online Retail Dataset](https://archive.ics.uci.edu/ml/datasets/online+retail) from the UCI Machine Learning Repository. The dataset contains transactional data for a UK-based and registered non-store online retail business.
+
+The main goal of this analysis is to:
+- Understand the **sales trends**, **top products**, and **customer distribution**
+- Perform **data cleaning** and **feature creation** for better insights
+- Visualize patterns and correlations to support data-driven decision-making
+
+---
+
+## 📂 Dataset Description
+
+The dataset comes as an Excel file: `Online Retail.xlsx`
+
+| Column Name     | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| InvoiceNo       | Invoice number. A 6-digit integral number uniquely assigned to each transaction |
+| StockCode       | Product (item) code                                                         |
+| Description     | Product (item) name                                                         |
+| Quantity        | The quantities of each product per transaction                              |
+| InvoiceDate     | The day and time when each transaction was generated                        |
+| UnitPrice       | Product price per unit in sterling (£)                                     |
+| CustomerID      | Unique customer number                                                      |
+| Country         | The name of the country where the customer resides                          |
+
+---
+
+## 🛠️ Technologies Used
+
+- **Python 3.x**
+- **Pandas** – Data cleaning & manipulation
+- **Matplotlib** – Visualizations
+- **Seaborn** – Statistical plots & heatmaps
+- **Jupyter Notebook** – Interactive development
+
+---
+
+## 🧼 Data Cleaning Steps
+
+1. **Loaded the Excel file** into a Pandas DataFrame
+2. **Stripped extra spaces** from column names:
+   ```python
+   df.columns = df.columns.str.strip()
+   ```
+3. **Removed rows with missing CustomerID**
+4. **Dropped duplicates** and irrelevant entries
+5. **Converted InvoiceDate** to datetime type for time-based analysis
+6. **Created a new column Revenue**:
+   ```python
+   df['Revenue'] = df['Quantity'] * df['UnitPrice']
+   ```
+
+---
+
+## 📊 Exploratory Data Analysis
+
+### 1️⃣ Top 10 Products by Revenue
+Bar chart showing products that generated the highest total revenue.
+
+```python
+top_products = df.groupby('Description')['Revenue'].sum().sort_values(ascending=False).head(10)
+top_products.plot(kind='bar', figsize=(12,6))
+plt.title('Top 10 Products by Revenue')
+plt.xticks(rotation=75)
+plt.show()
+```
+
+### 2️⃣ Top Countries by Number of Customers
+After fixing column names, we visualized the top countries by the number of transactions.
+
+```python
+df.columns = df.columns.str.strip()
+df['Country'].value_counts().head(10).plot(kind='bar', figsize=(10,5))
+plt.title('Top Countries by Number of Customers')
+plt.xlabel('Country')
+plt.ylabel('Number of Customers')
+plt.xticks(rotation=75)
+plt.tight_layout()
+plt.show()
+```
+
+### 3️⃣ Correlation Heatmap
+Analyzed relationships between Quantity, UnitPrice, and Revenue.
+
+```python
+plt.figure(figsize=(6,4))
+sns.heatmap(df[['Quantity','UnitPrice','Revenue']].corr(), annot=True, cmap='coolwarm')
+plt.title('Correlation Heatmap')
+plt.show()
+```
+
+### 4️⃣ Monthly Revenue Trend
+Grouped data by month to visualize revenue trends over time.
+
+```python
+df.groupby(df['InvoiceDate'].dt.to_period('M'))['Revenue'].sum().plot(figsize=(12,6))
+plt.title('Monthly Revenue Trend')
+plt.ylabel('Revenue')
+plt.show()
+```
+
+---
+
+## 📈 Key Insights
+
+- A small number of products generate the majority of revenue
+- The United Kingdom dominates the transaction volume
+- Quantity and Revenue are strongly correlated, while UnitPrice is more variable
+- Revenue shows seasonal spikes, indicating possible seasonal demand
+
+---
+
+## 🧠 Future Scope
+
+- Customer segmentation using RFM (Recency, Frequency, Monetary) analysis
+- Predictive modeling for future sales
+- Building a dashboard for real-time monitoring
+
+---
+
+## 🚀 How to Run
+
+1. **Clone this repository:**
+   ```bash
+   git clone https://github.com/your-username/STUDYTRACK_AI_STUDENTRECOMMENDER.git
+   cd STUDYTRACK_AI_STUDENTRECOMMENDER/MILESTONE\ 1
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pip install pandas matplotlib seaborn openpyxl
+   ```
+
+3. **Ensure the data folder contains:**
+   - `Online Retail.xlsx`
+   - `customers.csv`
+   - `transactions.csv`
+
+4. **Open the Jupyter Notebook:**
+   ```bash
+   jupyter notebook Milestone1_EDA.ipynb
+   ```
+
+5. **Run the notebook cells sequentially**
+
+---
+
+## 📁 Project Structure
+
+```
+STUDYTRACK_AI_STUDENTRECOMMENDER/
+│
+├── MILESTONE 1/
+│   ├── data/
+│   │   ├── customers.csv           # Customer data
+│   │   ├── Online Retail.xlsx      # Main dataset file
+│   │   └── transactions.csv        # Transaction data
+│   └── Milestone1_EDA.ipynb        # Jupyter notebook with EDA
+│
+├── README.md                       # Project documentation
+└── requirements.txt                # Python dependencies (optional)
+```
+
+---
+
+## 📚 References
+
+- [UCI Machine Learning Repository - Online Retail Dataset](https://archive.ics.uci.edu/ml/datasets/online+retail)
+- [Pandas Documentation](https://pandas.pydata.org/docs/)
+- [Seaborn Documentation](https://seaborn.pydata.org/)
+- [Matplotlib Documentation](https://matplotlib.org/)
+
+---
+
+## 👨‍💻 Author
+
+**Tarun Gupta**  
+📧 tarungupta0714@gmail.com  
+🎓 Manipal University Jaipur
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+⭐ **If you found this project helpful, please give it a star!** ⭐
