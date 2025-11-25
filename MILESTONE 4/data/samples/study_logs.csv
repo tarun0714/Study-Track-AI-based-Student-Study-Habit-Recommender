@@ -1,0 +1,6 @@
+logid,studentid,date,studyhours,methodused,distractions,quizscore
+1,1,2025-10-01T18:00:00,2.0,Pomodoro,"phone, social",78
+2,1,2025-10-03T20:00:00,1.5,Spaced Repetition,"",84
+3,2,2025-10-02T09:00:00,0.75,Active Recall,"noise",65
+4,3,2025-10-04T22:30:00,1.0,Pomodoro,"games",72
+

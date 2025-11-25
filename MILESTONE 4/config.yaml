@@ -1,0 +1,38 @@
+paths:
+  data_raw: data/raw
+  data_processed: data/processed
+  samples: data/samples
+  models: models
+  figures: figures
+  database: db/app.db
+
+clustering:
+  kmeans:
+    n_clusters: 4
+    random_state: 42
+  dbscan:
+    eps: 0.8
+    min_samples: 10
+
+features:
+  numerical: ["studyhours", "quizscore", "distractions_count", "sessions_per_day"]
+  categorical: ["methodused", "time_of_day"]
+
+recommendations:
+  cluster_profiles:
+    0:
+      name: "Focused Studiers"
+      recommendedmethod: "Pomodoro"
+      breakinterval: 10
+    1:
+      name: "Night Owls"
+      recommendedmethod: "Spaced Repetition"
+      breakinterval: 15
+    2:
+      name: "Short Burst Learners"
+      recommendedmethod: "Active Recall"
+      breakinterval: 5
+    3:
+      name: "Distracted Learners"
+      recommendedmethod: "Distraction Blocking + Pomodoro"
+      breakinterval: 5
